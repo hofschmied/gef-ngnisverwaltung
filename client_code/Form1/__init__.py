@@ -20,7 +20,14 @@ class Form1(Form1Template):
 
   def gefaengnisse_drop_down_change(self, **event_args):
     """This method is called when an item is selected"""
-    pass
+    selected_gefaengnis = self.gefaengnisse_drop_down.selected_value
+    if selected_gefaengnis:
+        gefaengnis_id = selected_gefaengnis[1]
+        daten = anvil.server.call('get_gefaengnis_details', gefaengnis_id)
+        self.label_direktor.text = f"Direktor: {daten['direktor']}"
+        self.label_freie_zellen.text = f"Freie Zellen: {daten['freie_zellen']}"
+        self.load_zellen(gefaengnis_id)
+
 
  
 
